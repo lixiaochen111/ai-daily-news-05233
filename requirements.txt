@@ -1,0 +1,9 @@
+requests==2.32.3
+beautifulsoup4==4.12.3
+feedparser==6.0.11
+python-dateutil==2.9.0.post0
+PyYAML>=6.0
+
+# AI Filtering (optional - only needed if AI_FILTER_ENABLED=1)
+zhipuai>=2.1.0  # Official Zhipu AI SDK for GLM-4.7-Flash
+openai>=1.0.0   # OpenAI SDK (fallback, also used by EasyRouter client)
