@@ -1,0 +1,68 @@
+name: Update News
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install feedparser requests beautifulsoup4 python-dateutil pyyaml zhipuai openai
+
+      - name: Update news data
+        env:
+          EASYROUTER_API_KEY: ${{ secrets.EASYROUTER_API_KEY }}
+          EASYROUTER_BASE_URL: https://easyrouter.io/v1
+        run: |
+          export PYTHONPATH="${PYTHONPATH}:$PWD"
+          python scripts/update_news.py --output-dir data --window-hours 24 --rss-opml feeds/follow.opml
+
+      - name: Commit changes
+        run: |
+          git config user.name "lixiaochen111"
+          git config user.email "lixiaochen0529@gmail.com"
+          git add data/*.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update news data" && git pull --rebase origin main && git push)
+
+  deploy:
+    needs: update
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
