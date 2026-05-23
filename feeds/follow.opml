@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="2.0">
+  <head>
+    <title>AI Daily News Feeds</title>
+  </head>
+  <body>
+    <outline type="rss" xmlUrl="https://rsshub.pseudoyu.com/twitter/user/ryolu" />
+  </body>
+</opml>
