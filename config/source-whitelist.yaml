@@ -1,0 +1,415 @@
+# 三级来源白名单配置
+# 基于用户实际分配：docs/selected-sources.md
+# 更新时间：2026-05-17
+
+version: "1.0"
+description: |
+  Tier 0: 编辑精选源 - 直接发布（编辑已筛选过）
+  Tier 1: 高质量源 - AI深度分析
+  Tier 2: 广域官方源 - 完整筛选（关键词+AI）
+
+# ==================== Tier 0: 编辑精选源 ====================
+# 特征：编辑已经帮忙筛选过，内容密度高，直接发布
+# 流程：抓取 → 内容整理 → 直接发布
+
+tier_0_sources:
+  # 设计教程平台（编辑精选）
+  - id: ux_collective
+    name: "UX Collective"
+    patterns:
+      - "uxdesign.cc"
+      - "UX Collective"
+    reason: "Medium最大UX设计专栏，编辑质量控制严格"
+    update_frequency: "daily"
+    expected_items_per_day: 3
+    language: "en"
+
+  - id: codrops
+    name: "Codrops"
+    patterns:
+      - "tympanus.net/codrops"
+      - "Codrops"
+    reason: "创意前端设计，编辑精选高质量案例"
+    update_frequency: "weekly"
+    expected_items_per_day: 0.4
+    language: "en"
+
+  - id: web_designer_depot
+    name: "Web Designer Depot"
+    patterns:
+      - "webdesignerdepot.com"
+      - "Web Designer Depot"
+    reason: "Web设计资源，编辑团队筛选"
+    update_frequency: "daily"
+    expected_items_per_day: 1
+    language: "en"
+
+  # 设计灵感聚合（编辑精选）
+  - id: awwwards
+    name: "Awwwards"
+    patterns:
+      - "awwwards.com"
+      - "Awwwards"
+    reason: "网页设计大奖，专业评审团筛选"
+    update_frequency: "daily"
+    expected_items_per_day: 2
+    language: "en"
+
+  - id: muzli
+    name: "Muzli"
+    patterns:
+      - "muz.li"
+      - "medium.muz.li"
+      - "Muzli"
+    reason: "每日设计灵感精选合集"
+    update_frequency: "daily"
+    expected_items_per_day: 1
+    language: "en"
+
+  - id: sidebar
+    name: "Sidebar"
+    patterns:
+      - "sidebar.io"
+      - "Sidebar"
+    reason: "每日5个最佳设计链接，人工筛选"
+    update_frequency: "daily"
+    expected_items_per_day: 1
+    language: "en"
+
+  - id: webdesigner_news
+    name: "Webdesigner News"
+    patterns:
+      - "webdesignernews.com"
+      - "Webdesigner News"
+    reason: "Web设计新闻聚合，编辑筛选"
+    update_frequency: "daily"
+    expected_items_per_day: 2
+    language: "en"
+
+  # B站UP主（个人创作者=筛选者）
+  - id: bilibili_qiuzhi2046
+    name: "秋芝2046"
+    patterns:
+      - "bilibili.com/385670211"
+      - "秋芝2046"
+      - "space.bilibili.com/385670211"
+    reason: "AI工具教程UP主，本人即内容筛选者"
+    update_frequency: "weekly"
+    expected_items_per_day: 0.6
+    language: "zh"
+    max_items_per_day: 2
+
+
+# ==================== Tier 1: 高质量源 ====================
+# 特征：高质量内容，但范围广，需AI判断相关性
+# 流程：抓取 → 跳过关键词 → AI深度分析 → 发布
+
+tier_1_sources:
+  # 主流科技媒体（RSS用户自定义源）
+  - id: the_verge
+    name: "The Verge"
+    patterns:
+      - "theverge.com"
+      - "The Verge"
+    reason: "主流科技媒体，内容广泛，需AI筛选AI+设计相关"
+    update_frequency: "hourly"
+    expected_items_per_day: 50
+    language: "en"
+    ai_filter_focus:
+      - "AI产品"
+      - "设计工具"
+      - "创意应用"
+    exclude_topics:
+      - "纯硬件评测"
+      - "游戏"
+      - "娱乐八卦"
+    max_items_per_day: 50
+
+  - id: techcrunch
+    name: "TechCrunch"
+    patterns:
+      - "techcrunch.com"
+      - "TechCrunch"
+    reason: "创投科技媒体，需筛选AI创业、产品相关"
+    update_frequency: "hourly"
+    expected_items_per_day: 30
+    language: "en"
+    ai_filter_focus:
+      - "AI创业"
+      - "新产品发布"
+      - "设计工具融资"
+    exclude_topics:
+      - "纯金融"
+      - "加密货币"
+      - "政策法规"
+    max_items_per_day: 30
+
+  - id: wired
+    name: "Wired"
+    patterns:
+      - "wired.com"
+      - "Wired"
+    reason: "科技文化媒体，需筛选AI+设计深度报道"
+    update_frequency: "daily"
+    expected_items_per_day: 20
+    language: "en"
+    ai_filter_focus:
+      - "AI应用"
+      - "设计趋势"
+      - "创意科技"
+    exclude_topics:
+      - "纯政治"
+      - "安全政策"
+      - "科学理论"
+    max_items_per_day: 20
+
+  # 中文设计社区
+  - id: uisdc
+    name: "优设网"
+    patterns:
+      - "uisdc.com"
+      - "优设网"
+    reason: "设计师学习平台，内容多，需AI筛选高质量"
+    update_frequency: "daily"
+    expected_items_per_day: 2
+    language: "zh"
+    ai_filter_focus:
+      - "AI设计教程"
+      - "工具实测"
+      - "设计案例"
+    max_items_per_day: 3
+
+  # Newsletter
+  - id: ux_collective_weekly
+    name: "UX Collective Weekly"
+    patterns:
+      - "newsletter.uxdesign.cc"
+      - "UX Collective Weekly"
+    reason: "周报汇总，包含各类内容，需AI筛选"
+    update_frequency: "weekly"
+    expected_items_per_day: 0.2
+    language: "en"
+    ai_filter_focus:
+      - "AI设计应用"
+      - "工作流优化"
+      - "新工具推荐"
+
+
+# ==================== Tier 2: 广域官方源 ====================
+# 特征：官方源但内容范围广，需要严格筛选特定主题
+# 流程：抓取 → 关键词初筛 → AI深度分析 → 发布
+
+tier_2_sources:
+  # 设计工具官方（只要新功能和AI相关）
+  - id: figma_official
+    name: "Figma Blog"
+    patterns:
+      - "figma.com/blog"
+      - "Figma"
+    reason: "官方博客内容广，只要新功能发布和AI相关教程"
+    update_frequency: "weekly"
+    expected_items_per_day: 0.3
+    language: "en"
+    filter_focus:
+      - "新功能发布"
+      - "AI功能"
+      - "产品更新"
+      - "Config大会"
+    exclude_topics:
+      - "招聘"
+      - "公司文化"
+      - "用户故事"
+    max_items_per_day: 2
+
+  # AI大模型官方（只要新产品发布）
+  - id: openai_official
+    name: "OpenAI Blog"
+    patterns:
+      - "openai.com"
+      - "OpenAI"
+    reason: "官方博客包含大量研究论文，只要新产品发布"
+    update_frequency: "monthly"
+    expected_items_per_day: 0.15
+    language: "en"
+    filter_focus:
+      - "产品发布"
+      - "新功能"
+      - "API更新"
+    exclude_topics:
+      - "纯研究论文"
+      - "学术理论"
+      - "安全政策"
+    max_items_per_day: 1
+
+  - id: anthropic_official
+    name: "Anthropic Blog"
+    patterns:
+      - "anthropic.com"
+      - "Anthropic"
+    reason: "官方博客，只要新产品发布"
+    update_frequency: "monthly"
+    expected_items_per_day: 0.1
+    language: "en"
+    filter_focus:
+      - "Claude产品更新"
+      - "新功能发布"
+      - "API更新"
+    exclude_topics:
+      - "纯研究论文"
+      - "安全理论"
+      - "公司动态"
+    max_items_per_day: 1
+
+  # 中文效率工具平台（只要AI coding）
+  - id: sspai
+    name: "少数派"
+    patterns:
+      - "sspai.com"
+      - "少数派"
+    reason: "效率工具平台，范围广，只关注AI coding相关"
+    update_frequency: "daily"
+    expected_items_per_day: 1
+    language: "zh"
+    filter_focus:
+      - "AI coding"
+      - "Cursor"
+      - "GitHub Copilot"
+      - "代码助手"
+      - "开发工具"
+      - "AI辅助编程"
+    exclude_topics:
+      - "纯硬件评测"
+      - "生活方式"
+      - "娱乐应用"
+    max_items_per_day: 2
+
+  # 技术社区（只要AI coding）
+  - id: juejin
+    name: "掘金 - AI设计标签"
+    patterns:
+      - "juejin.cn"
+      - "掘金"
+      - "aicoding.juejin.cn"
+    reason: "技术社区，内容杂，只关注AI coding相关"
+    update_frequency: "daily"
+    expected_items_per_day: 1
+    language: "zh"
+    filter_focus:
+      - "AI coding"
+      - "代码生成"
+      - "智能补全"
+      - "开发工具"
+      - "AI辅助开发"
+    exclude_topics:
+      - "纯后端"
+      - "运维"
+      - "算法题"
+    max_items_per_day: 2
+
+  # AI聚合源（综合关注）
+  - id: aihot
+    name: "AI HOT"
+    patterns:
+      - "aihot.virxact.com"
+      - "AI HOT"
+      - "AIHOT"
+    reason: "AI资讯聚合，关注最新模型、AI coding、设计、教程"
+    update_frequency: "daily"
+    expected_items_per_day: 3
+    language: "zh"
+    filter_focus:
+      - "最新模型发布"
+      - "AI coding工具"
+      - "设计相关AI"
+      - "实践教程"
+      - "开发者工具"
+    exclude_topics:
+      - "纯理论"
+      - "行业八卦"
+      - "融资新闻"
+    max_items_per_day: 4
+
+
+# ==================== 黑名单 ====================
+blacklist_sources:
+  - id: entertainment
+    patterns:
+      - "娱乐"
+      - "八卦"
+      - "明星"
+      - "综艺"
+    reason: "与项目定位无关"
+
+  - id: ecommerce
+    patterns:
+      - "淘宝"
+      - "京东"
+      - "拼多多"
+      - "优惠券"
+      - "热销"
+      - "促销"
+      - "下单"
+    reason: "电商促销内容"
+
+  - id: spam
+    patterns:
+      - "震惊"
+      - "不看后悔"
+      - "你绝对想不到"
+      - "必看"
+      - "速看"
+    reason: "标题党低质量内容"
+
+  - id: irrelevant
+    patterns:
+      - "足球"
+      - "篮球"
+      - "游戏攻略"
+      - "小说"
+      - "美食"
+      - "旅游攻略"
+    reason: "明确无关内容"
+
+
+# ==================== 配置元数据 ====================
+metadata:
+  total_sources: 17
+  tier_0_count: 8
+  tier_1_count: 2
+  tier_2_count: 6
+
+  tier_distribution:
+    tier_0:
+      description: "编辑精选源，直接发布"
+      expected_daily_items: "8-12条"
+      processing: "内容整理"
+    tier_1:
+      description: "高质量源，AI深度分析"
+      expected_daily_items: "2-3条"
+      processing: "AI筛选相关性和质量"
+    tier_2:
+      description: "广域官方源，完整筛选"
+      expected_daily_items: "5-8条"
+      processing: "关键词+AI双重筛选"
+
+  expected_total_daily_output: "15-23条"
+
+
+# ==================== 匹配优先级 ====================
+matching_priority: |
+  1. 黑名单（最高优先级，直接丢弃）
+  2. Tier 0（编辑精选源）
+  3. Tier 1（高质量源）
+  4. Tier 2（广域官方源）
+  5. 未匹配源（默认按Tier 2处理）
+
+
+# ==================== 使用说明 ====================
+notes: |
+  1. patterns支持子字符串匹配（不区分大小写）
+  2. filter_focus指导AI筛选的重点方向
+  3. exclude_topics明确排除的主题
+  4. max_items_per_day限制单源每日最大条数
+  5. expected_items_per_day用于统计和预测
+  6. Tier 0的逻辑：编辑已筛选 = 可信任，直接发布
+  7. Tier 2的逻辑：官方源内容太广 = 需严格筛选特定主题
